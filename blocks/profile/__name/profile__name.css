@@ -8,12 +8,25 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   grid-area: name;
+  max-width: 440px;
+}
+
+@media screen and (max-width: 805px) {
+  .profile__name {
+    max-width: 290px;
+  }
+}
+
+@media screen and (max-Width: 652px) {
+  .profile__name {
+    font-size: 27px;
+    line-height: 1.22;
+  }
 }
 
 @media screen and (max-width: 360px) {
   .profile__name {
     text-align: center;
-    font-size: 27px;
-    line-height: 1.22;
+    max-width: 240px;
   }
 }

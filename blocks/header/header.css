@@ -1,5 +1,4 @@
 .header {
-  min-height: 119px;
   position: relative;
 }
 .header::before {
@@ -10,10 +9,4 @@
   border: 1px solid #545454;
   width: 100%;
   box-sizing: border-box;
-}
-
-@media screen and (max-width: 652px) {
-  .header {
-    min-height: 84px;
-  }
 }

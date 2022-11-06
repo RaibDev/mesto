@@ -1,12 +1,17 @@
-let editFormButton = document.querySelector('.edit-button');
-let closeFormButton = document.querySelector('.close-button');
-let popupActive = document.querySelector('.popup');
+const editFormButton = document.querySelector('.edit-button');
+const closeFormButton = document.querySelector('.close-button');
+const popupActive = document.querySelector('.popup');
+const formElement = document.querySelector('.popup__form');
+const nameInput = document.querySelector('.popup__input_type_name');
+const jobInput = document.querySelector('.popup__input_type_job');
 
-closeFormButton.addEventListener('click', () => {  
+function closeEditForm() {
   popupActive.classList.remove('popup_active');
-});
+}
 
-editFormButton.addEventListener('click', () => {  // функция не переиспользуется, поэтому - стрелочная 
+closeFormButton.addEventListener('click', closeEditForm);
+
+editFormButton.addEventListener('click', () => {  // Может неверно понял указанную ошибку, но в попап в поле заносится измененное имя
   popupActive.classList.add('popup_active');
 }); 
 
@@ -21,10 +26,6 @@ likeButton.addEventListener('click', () => {
 });
 */
 
-let formElement = document.querySelector('.popup__form');
-let nameInput = document.querySelector('.popup__input_type_name');
-let jobInput = document.querySelector('.popup__input_type_job');
-
 function formSubmitHandler(evt) {
   evt.preventDefault();
 
@@ -34,7 +35,7 @@ function formSubmitHandler(evt) {
   profileName.textContent = nameInput.value;
   profileProfession.textContent = jobInput.value;
 
-  popupActive.classList.remove('popup_active');
+  closeEditForm();
 }
 
 formElement.addEventListener('submit', formSubmitHandler);

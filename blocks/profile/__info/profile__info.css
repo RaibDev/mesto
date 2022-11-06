@@ -9,5 +9,6 @@
 @media screen and (max-width: 652px) {
   .profile__info {
     gap: 14px;
+    justify-content: center;
   }
 }

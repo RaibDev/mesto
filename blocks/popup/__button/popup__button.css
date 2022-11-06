@@ -9,6 +9,8 @@
   cursor: pointer;
   border-radius: 2px;
   transition: opacity .5;
+  border: none;
+  margin-top: 18px;
 }
 
 .popup__button:hover {
@@ -17,6 +19,7 @@
 
 @media screen and (max-width: 550px) {
   .popup__button {
+    margin-top: 15px;
     min-height: 46px;
     font-size: 14px;
     line-height: 1.21;
