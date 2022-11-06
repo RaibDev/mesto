@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Владимир Дубовицкий">
+  <meta name="description" content="Место">
+  <meta name="keywords" content="HTML5, CSS3, JS, Git, BEM Nested, Figma">
+  <link rel="icon" href="./images/icon/favicon.ico"> 
+  <link rel="stylesheet" href="./pages/index.css">
+  <title>Место</title>
+</head>
+<body class="root">
+  <header class="header container">
+    <img src="./images/icon/white-logo.svg" alt="Белый логотип" class="logo">
+    <img src="./images/icon/black-logo.svg" alt="Чёрный логотип" class="logo logo_disabled">
+  </header>
+  <main aria-label="Приложение Место">
+    <section class="profile container">
+      <div class="profile__avatar"></div>
+      <div class="profile__info">
+        <h2 class="profile__name">Жак-Ив Кусто</h2>
+        <p class="profile__profession">Исследователь океана</p>
+        <button class="edit-button"></button>
+      </div>
+      <button class="button" type="button"></button>
+    </section>
+    <section class="gallery container" aria-label="Обязательные к посещению места">
+      <ul class="gallery__list">
+        <li>
+          <figure class="place container">
+            <img src="./images/cherkesia.jpg" alt="Храм" class="place__image">
+            <figcaption class="place__caption">
+              <p class="place__text">Карачаево-Черкесия</p>
+              <div class="place__button"></div>
+            </figcaption>
+          </figure>
+        </li>
+        <li>
+          <figure class="place">
+            <img src="./images/elbrus.jpg" alt="Горы на закате" class="place__image">
+            <figcaption class="place__caption">
+              <p class="place__text">Гора Эльбрус</p>
+              <div class="place__button"></div>
+            </figcaption>
+          </figure>
+        </li>
+        <li>
+          <figure class="place">
+            <img src="./images/dombai.jpg" alt="Скалы" class="place__image">
+            <figcaption class="place__caption">
+              <p class="place__text">Домбай</p>
+              <div class="place__button"></div>
+            </figcaption>
+          </figure>
+        </li>
+        <li>
+          <figure class="place">
+            <img src="./images/elbrus.jpg" alt="Горы на закате" class="place__image">
+            <figcaption class="place__caption">
+              <p class="place__text">Гора Эльбрус</p>
+              <div class="place__button"></div>
+            </figcaption>
+          </figure>
+        </li>
+        <li>
+          <figure class="place">
+            <img src="./images/dombai.jpg" alt="Скалы" class="place__image">
+            <figcaption class="place__caption">
+              <p class="place__text">Домбай</p>
+              <div class="place__button"></div>
+            </figcaption>
+          </figure>
+        </li>
+        <li>
+          <figure class="place">
+            <img src="./images/cherkesia.jpg" alt="Храм" class="place__image">
+            <figcaption class="place__caption">
+              <p class="place__text">Карачаево-Черкесия</p>
+              <div class="place__button"></div>
+            </figcaption>
+          </figure>
+        </li>
+      </ul>
+    </section>
+  </main>
+  <footer class="footer container">
+    <p class="footer__author">&copy; 2022 Mesto Russia</p>
+  </footer>
+  <div class="popup">
+    <div class="popup__box">
+      <h3 class="popup__title">Редактировать профиль</h3>
+      <form action="#" class="popup__form">
+        <input class="popup__input popup__input_type_name" type="text" placeholder="Жак-Ив Кусто" value="Жак-Ив Кусто">
+        <input class="popup__input popup__input_type_job" type="text" placeholder="Исследователь океана" value="Исследователь океана">
+        <input class="popup__button" type="submit" value="Сохранить">
+      </form>
+      <button class="close-button" type="button"></button>
+    </div>
+  </div>
+  <script src="./pages/index.js"></script>
+</body>
+</html>
