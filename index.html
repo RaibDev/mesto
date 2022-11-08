@@ -20,7 +20,7 @@
     <section class="profile container">
       <div class="profile__avatar"></div>
       <div class="profile__info">
-        <h1 class="profile__name">Жак-Ив Кусто</h1>  <!-- Изначально не поставил нужный уровень, тк имя пользователя не должно же быть заголовком? -->
+        <h1 class="profile__name">Жак-Ив Кусто</h1>
         <p class="profile__profession">Исследователь океана</p>
         <button class="edit-button" type="button" aria-label="кнопка редактирования профиля"></button>
       </div>
@@ -91,9 +91,9 @@
   <div class="popup">
     <div class="popup__box">
       <h3 class="popup__title">Редактировать профиль</h3>
-      <form action="#" class="popup__form">
-        <input class="popup__input popup__input_type_name" type="text" placeholder="Жак-Ив Кусто" value="Жак-Ив Кусто" name="profile-name">
-        <input class="popup__input popup__input_type_job" type="text" placeholder="Исследователь океана" value="Исследователь океана" name="profile-job">
+      <form action="#" class="popup__form" name="edit-profile-form">
+        <input class="popup__input popup__input_type_name" type="text" placeholder="Жак-Ив Кусто" name="profile-name">
+        <input class="popup__input popup__input_type_job" type="text" placeholder="Исследователь океана" name="profile-job">
         <input class="popup__button" type="submit" value="Сохранить" name="submit-form">
       </form>
       <button class="close-button" type="button"></button>

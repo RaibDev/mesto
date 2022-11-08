@@ -5,14 +5,20 @@ const formElement = document.querySelector('.popup__form');
 const nameInput = document.querySelector('.popup__input_type_name');
 const jobInput = document.querySelector('.popup__input_type_job');
 
+let profileName = document.querySelector('.profile__name');
+let profileProfession = document.querySelector('.profile__profession');
+
 function closeEditForm() {
   popupActive.classList.remove('popup_active');
 }
 
 closeFormButton.addEventListener('click', closeEditForm);
 
-editFormButton.addEventListener('click', () => {  // Может неверно понял указанную ошибку, но в попап в поле заносится измененное имя
+editFormButton.addEventListener('click', () => { 
   popupActive.classList.add('popup_active');
+
+  nameInput.value = profileName.textContent;
+  jobInput.value = profileProfession.textContent;
 }); 
 
 /*function openEditForm() {
@@ -28,9 +34,6 @@ likeButton.addEventListener('click', () => {
 
 function formSubmitHandler(evt) {
   evt.preventDefault();
-
-  let profileName = document.querySelector('.profile__name');
-  let profileProfession = document.querySelector('.profile__profession');
   
   profileName.textContent = nameInput.value;
   profileProfession.textContent = jobInput.value;
