@@ -6,6 +6,7 @@
   cursor: pointer;
   transition: opacity .5s;
   border: none;
+  background-color: #fff;
 }
 
 .place__button:hover {

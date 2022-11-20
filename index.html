@@ -24,21 +24,22 @@
         <p class="profile__profession">Исследователь океана</p>
         <button class="edit-button" type="button" aria-label="кнопка редактирования профиля"></button>
       </div>
-      <button class="button" type="button" aria-label="кнопка добавления новой карточки места"></button>
+      <button class="add-button" type="button" aria-label="кнопка добавления новой карточки места"></button>
     </section>
     <section aria-label="Обязательные к посещению места">
       <ul class="gallery container">
-        <li>
-          <article class="place container">
+       <!--<li  class="place container">
+          <article>
             <img src="./images/cherkesia.jpg" alt="Храм" class="place__image">
             <div class="place__caption">
               <h2 class="place__text">Карачаево-Черкесия</h2>
               <button type="button" class="place__button" aria-label="кнопка лайка"></button>
             </div>
+            <button class="delete-card-btn" type="button" aria-label="кнопка удаления карточки"></button>
           </article>
         </li>
-        <li>
-          <article class="place">
+        <li class="place">
+          <article>
             <img src="./images/elbrus.jpg" alt="Горы на закате" class="place__image">
             <div class="place__caption">
               <h2 class="place__text">Гора Эльбрус</h2>
@@ -46,8 +47,8 @@
             </div>
           </article>
         </li>
-        <li>
-          <article class="place">
+        <li class="place">
+          <article>
             <img src="./images/dombai.jpg" alt="Скалы" class="place__image">
             <div class="place__caption">
               <h2 class="place__text">Домбай</h2>
@@ -55,8 +56,8 @@
             </div>
           </article>
         </li>
-        <li>
-          <article class="place">
+        <li class="place">
+          <article>
             <img src="./images/elbrus.jpg" alt="Горы на закате" class="place__image">
             <div class="place__caption">
               <h2 class="place__text">Гора Эльбрус</h2>
@@ -64,8 +65,8 @@
             </div>
           </article>
         </li>
-        <li>
-          <article class="place">
+        <li class="place">
+          <article>
             <img src="./images/dombai.jpg" alt="Скалы" class="place__image">
             <div class="place__caption">
               <h2 class="place__text">Домбай</h2>
@@ -73,15 +74,15 @@
             </div>
           </article>
         </li>
-        <li>
-          <article class="place">
+        <li class="place">
+          <article>
             <img src="./images/cherkesia.jpg" alt="Храм" class="place__image">
             <div class="place__caption">
               <h2 class="place__text">Карачаево-Черкесия</h2>
               <button type="button" class="place__button" aria-label="кнопка лайка"></button>
             </div>
           </article>
-        </li>
+        </li>-->
       </ul>
     </section>
   </main>
@@ -99,6 +100,37 @@
       <button class="close-button" type="button"></button>
     </div>
   </div>
+  <div class="popup popup-cards">
+    <div class="popup__box">
+      <h3 class="popup__title">Новое место</h3>
+      <form action="#" class="popup__form popup__form_type_create" name="create-place-form">
+        <input class="popup__input popup__input_type_title popup__input_type_place-form" type="text" placeholder="Название" name="place-title">
+        <input class="popup__input popup__input_type_link popup__input_type_place-form" type="text" placeholder="Ссылка на картинку" name="place-link" required>
+        <input class="popup__button popup__button_type_create" type="submit" value="Создать" name="submit-form">  <!-- Сомневаюсь насчет такого же name, как в форме редактирования  -->
+      </form>
+      <button class="close-button close-place-btn" type="button"></button>
+    </div>
+  </div>
+  <div class="popup popup-img">
+    <figure class="popup-img__figure">
+      <img src="#" alt="Увеличенная картинка" class="popup-img__item">
+      <figcaption class="popup-img__title"></figcaption>
+      <button class="close-button close-image-btn" type="button"></button>
+    </figure>
+  </div>
+
+  <template id="new-card">
+    <li class="place container">
+      <article>
+        <img src="#" class="place__image">
+        <div class="place__caption">
+          <h2 class="place__text"></h2>
+          <button type="button" class="place__button" aria-label="кнопка лайка"></button>
+        </div>
+        <button class="delete-card-btn" type="button" aria-label="кнопка удаления карточки"></button>
+      </article>
+    </li>
+  </template>
   <script src="./scripts/index.js"></script>
 </body>
 </html>
