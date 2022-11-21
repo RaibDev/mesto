@@ -17,7 +17,7 @@ const popupBiggerImage = document.querySelector('.popup-img')
 
 //  Создали переменные для обращени к полям форм
 
-const formElement = document.querySelector('.popup__form_type_edit');
+const formEditElement = document.querySelector('.popup__form_type_edit');
 const formCreateElement = document.querySelector('.popup__form_type_create');
 
 //  Фиксируем инпуты в переменные для обращения к ним
@@ -45,7 +45,7 @@ const closePopup = popup => {                  //  Функция закрыти
   popup.classList.remove('popup_active');
 }
 
-const savingEditFormHandler = event => {     //  Функция сохранения значений формы редактирования профиля
+const saveEditFormHandler = event => {     //  Функция сохранения значений формы редактирования профиля
   event.preventDefault();
   
   profileName.textContent = nameInput.value;
@@ -128,7 +128,7 @@ editProfileButton.addEventListener('click', () => { //  Открытие ред�
   jobInput.value = profileProfession.textContent;
 }); 
 
-formElement.addEventListener('submit', savingEditFormHandler);  // Слушатель на сабмит профиля
+formEditElement.addEventListener('submit', saveEditFormHandler);  // Слушатель на сабмит профиля
 
 closeImagePopupButton.addEventListener('click', () => {  // Закрытие попапа картинки
   closePopup(popupBiggerImage);
