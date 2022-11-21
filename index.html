@@ -28,85 +28,31 @@
     </section>
     <section aria-label="Обязательные к посещению места">
       <ul class="gallery container">
-       <!--<li  class="place container">
-          <article>
-            <img src="./images/cherkesia.jpg" alt="Храм" class="place__image">
-            <div class="place__caption">
-              <h2 class="place__text">Карачаево-Черкесия</h2>
-              <button type="button" class="place__button" aria-label="кнопка лайка"></button>
-            </div>
-            <button class="delete-card-btn" type="button" aria-label="кнопка удаления карточки"></button>
-          </article>
-        </li>
-        <li class="place">
-          <article>
-            <img src="./images/elbrus.jpg" alt="Горы на закате" class="place__image">
-            <div class="place__caption">
-              <h2 class="place__text">Гора Эльбрус</h2>
-              <button type="button" class="place__button" aria-label="кнопка лайка"></button>
-            </div>
-          </article>
-        </li>
-        <li class="place">
-          <article>
-            <img src="./images/dombai.jpg" alt="Скалы" class="place__image">
-            <div class="place__caption">
-              <h2 class="place__text">Домбай</h2>
-              <button type="button" class="place__button" aria-label="кнопка лайка"></button>
-            </div>
-          </article>
-        </li>
-        <li class="place">
-          <article>
-            <img src="./images/elbrus.jpg" alt="Горы на закате" class="place__image">
-            <div class="place__caption">
-              <h2 class="place__text">Гора Эльбрус</h2>
-              <button type="button" class="place__button" aria-label="кнопка лайка"></button>
-            </div>
-          </article>
-        </li>
-        <li class="place">
-          <article>
-            <img src="./images/dombai.jpg" alt="Скалы" class="place__image">
-            <div class="place__caption">
-              <h2 class="place__text">Домбай</h2>
-              <button type="button" class="place__button" aria-label="кнопка лайка"></button>
-            </div>
-          </article>
-        </li>
-        <li class="place">
-          <article>
-            <img src="./images/cherkesia.jpg" alt="Храм" class="place__image">
-            <div class="place__caption">
-              <h2 class="place__text">Карачаево-Черкесия</h2>
-              <button type="button" class="place__button" aria-label="кнопка лайка"></button>
-            </div>
-          </article>
-        </li>-->
+
       </ul>
     </section>
   </main>
   <footer class="footer container">
     <p class="footer__author">&copy; 2022 Mesto Russia</p>
   </footer>
-  <div class="popup">
+  <div class="popup popup-edit">
     <div class="popup__box">
       <h3 class="popup__title">Редактировать профиль</h3>
-      <form action="#" class="popup__form" name="edit-profile-form">
-        <input class="popup__input popup__input_type_name" type="text" placeholder="Жак-Ив Кусто" name="profile-name">
-        <input class="popup__input popup__input_type_job" type="text" placeholder="Исследователь океана" name="profile-job">
+      <form action="#" class="popup__form popup__form_type_edit" name="edit-profile-form">
+        <input class="popup__input popup__input_type_name" type="text" placeholder="Имя" name="profile-name" required>
+        <input class="popup__input popup__input_type_job" type="text" placeholder="О себе" name="profile-job" required>
         <input class="popup__button" type="submit" value="Сохранить" name="submit-form">
       </form>
-      <button class="close-button" type="button"></button>
+      <button class="close-button close-edit-btn" type="button"></button>
     </div>
   </div>
   <div class="popup popup-cards">
     <div class="popup__box">
       <h3 class="popup__title">Новое место</h3>
       <form action="#" class="popup__form popup__form_type_create" name="create-place-form">
-        <input class="popup__input popup__input_type_title popup__input_type_place-form" type="text" placeholder="Название" name="place-title">
-        <input class="popup__input popup__input_type_link popup__input_type_place-form" type="text" placeholder="Ссылка на картинку" name="place-link" required>
-        <input class="popup__button popup__button_type_create" type="submit" value="Создать" name="submit-form">  <!-- Сомневаюсь насчет такого же name, как в форме редактирования  -->
+        <input class="popup__input popup__input_type_title popup__input_type_place-form" type="text" placeholder="Название" name="place-title" required>
+        <input class="popup__input popup__input_type_link popup__input_type_place-form" type="url" placeholder="Ссылка на картинку" name="place-link" required>
+        <input class="popup__button popup__button_type_create" type="submit" value="Создать" name="submit-form">  
       </form>
       <button class="close-button close-place-btn" type="button"></button>
     </div>
@@ -133,6 +79,7 @@
       </article>
     </li>
   </template>
-  <script src="./scripts/index.js"></script>
+  <script defer src="./scripts/data.js"></script>
+  <script defer src="./scripts/index.js"></script>
 </body>
 </html>
