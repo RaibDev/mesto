@@ -11,6 +11,7 @@ const closeImagePopupButton = document.querySelector('.close-image-btn');
 
 //  Записали попапы в переменные
 
+const popup = document.querySelectorAll('.popup');
 const popupProfileForm = document.querySelector('.popup-edit');
 const popupAddPlaceForm = document.querySelector('.popup-cards');
 const popupBiggerImage = document.querySelector('.popup-img')
@@ -39,6 +40,10 @@ const popupImageItem = document.querySelector('.popup-img__item');
 
 const openPopup = popup => {                      //  Функция открытия попапа
   popup.classList.add('popup_active');
+  document.querySelectorAll('.popup__button').forEach(function (elem) {
+    elem.setAttribute('disabled', true);
+    elem.classList.add('popup__button_disabled');                           // ????????????????????????????????????????????????????????????????
+  })
 }
 
 const closePopup = popup => {                  //  Функция закрытия попапа
@@ -57,6 +62,16 @@ const saveEditFormHandler = event => {     //  Функция сохранени
 const deleteCard = event => {           // функция удаления карточки
   event.target.closest('.place').remove();
 }
+
+const closePopupToPressEscBtn = (event) => {   //  функция для слушателя события ESC для закрытия попапа нажатием клавиши
+  if (event.key === 'Escape') { 
+    const form = document.querySelector('.popup_active');
+    form.classList.remove('popup_active');
+  };
+  //document.removeEventListener('keydown', closePopupToPressEscBtn);
+};
+
+document.addEventListener('keydown', closePopupToPressEscBtn);  //  Слушатель события закрытия попапа с клавиши
 
 const placeTemplate = document.querySelector('#new-card').content.querySelector('.place');   // Создаем шаблон добавления содержимого тега template
 
@@ -99,11 +114,11 @@ const addCard = dataCard => {                           // Добавляем к
 
 initialCards.forEach(addCard);                  //  Генерируем карточки 
 
-closeEditPopupButton.addEventListener('click', () => {
+closeEditPopupButton.addEventListener('click', () => { //  Обработчик клика по кнопке закрытия формы поля профиля
   closePopup(popupProfileForm);
 });
 
-closeAddCardButton.addEventListener('click', () => {
+closeAddCardButton.addEventListener('click', () => {    //  Обработчик клика по кнопке закрытия формы новой карточки
   closePopup(popupAddPlaceForm);
 });
 
@@ -133,3 +148,11 @@ formEditElement.addEventListener('submit', saveEditFormHandler);  // Слуша�
 closeImagePopupButton.addEventListener('click', () => {  // Закрытие попапа картинки
   closePopup(popupBiggerImage);
 })
+
+popup.forEach(function (elem) {       //  Слушатель клика по оверлею
+  elem.addEventListener('click', (evt) => {
+    if (evt.target === evt.currentTarget) {
+      closePopup(elem);
+    }
+  });
+});

@@ -39,9 +39,9 @@
     <div class="popup__box">
       <h3 class="popup__title">Редактировать профиль</h3>
       <form action="#" class="popup__form popup__form_type_edit" name="edit-profile-form">
-        <input class="popup__input popup__input_type_name" type="text" placeholder="Имя" name="profile-name" required>
-        <input class="popup__input popup__input_type_job" type="text" placeholder="О себе" name="profile-job" required>
-        <input class="popup__button" type="submit" value="Сохранить" name="submit-form">
+        <input class="popup__input popup__input_type_name" placeholder="Имя" name="profile-name" novalidate type="text" required minlength="2" maxlength="40">
+        <input class="popup__input popup__input_type_job" placeholder="О себе" name="profile-job" novalidate type="text" required minlength="2" maxlength="200">
+        <button class="popup__button" type="submit" name="submit-form">Сохранить</button>
       </form>
       <button class="close-button close-edit-btn" type="button"></button>
     </div>
@@ -50,9 +50,9 @@
     <div class="popup__box">
       <h3 class="popup__title">Новое место</h3>
       <form action="#" class="popup__form popup__form_type_create" name="create-place-form">
-        <input class="popup__input popup__input_type_title popup__input_type_place-form" type="text" placeholder="Название" name="place-title" required>
-        <input class="popup__input popup__input_type_link popup__input_type_place-form" type="url" placeholder="Ссылка на картинку" name="place-link" required>
-        <input class="popup__button popup__button_type_create" type="submit" value="Создать" name="submit-form">  
+        <input class="popup__input popup__input_type_title popup__input_type_place-form" placeholder="Название" name="place-title" novalidate type="text" required minlength="2" maxlength="30">
+        <input class="popup__input popup__input_type_link popup__input_type_place-form" placeholder="Ссылка на картинку" name="place-link" novalidate type="url" required>
+        <button class="popup__button popup__button_type_create" type="submit" name="submit-form">Создать</button>
       </form>
       <button class="close-button close-place-btn" type="button"></button>
     </div>
@@ -80,6 +80,7 @@
     </li>
   </template>
   <script defer src="./scripts/data.js"></script>
+  <script defer src="./scripts/validate.js"></script>
   <script defer src="./scripts/index.js"></script>
 </body>
 </html>
