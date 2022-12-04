@@ -18,6 +18,7 @@ const popupBiggerImage = document.querySelector('.popup-img')
 
 //  Создали переменные для обращени к полям форм
 
+const formElements = document.querySelectorAll('.popup__form');
 const formEditElement = document.querySelector('.popup__form_type_edit');
 const formCreateElement = document.querySelector('.popup__form_type_create');
 
@@ -40,15 +41,19 @@ const popupImageItem = document.querySelector('.popup-img__item');
 
 const openPopup = popup => {                      //  Функция открытия попапа
   popup.classList.add('popup_active');
-  document.querySelectorAll('.popup__button').forEach(function (elem) {
-    elem.setAttribute('disabled', true);
-    elem.classList.add('popup__button_disabled');                           // ????????????????????????????????????????????????????????????????
-  })
-}
+  enableValidation(selectorsCollection); 
+  document.addEventListener('keydown', closePopupToPressEscBtn);
+};
 
 const closePopup = popup => {                  //  Функция закрытия попапа
   popup.classList.remove('popup_active');
-}
+  formElements.forEach((elem) => {
+    elem.reset();
+    elem.querySelectorAll('.popup__error').forEach((el) => {
+      el.textContent = '';
+    });
+  });
+};
 
 const saveEditFormHandler = event => {     //  Функция сохранения значений формы редактирования профиля
   event.preventDefault();
@@ -57,18 +62,18 @@ const saveEditFormHandler = event => {     //  Функция сохранени
   profileProfession.textContent = jobInput.value;
 
   closePopup(popupProfileForm);
-}
+};
 
 const deleteCard = event => {           // функция удаления карточки
   event.target.closest('.place').remove();
-}
+};
 
 const closePopupToPressEscBtn = (event) => {   //  функция для слушателя события ESC для закрытия попапа нажатием клавиши
   if (event.key === 'Escape') { 
     const form = document.querySelector('.popup_active');
     form.classList.remove('popup_active');
   };
-  //document.removeEventListener('keydown', closePopupToPressEscBtn);
+  document.removeEventListener('keydown', closePopupToPressEscBtn);//  Удаляем слушатель события закрытия попапа с клавиши
 };
 
 document.addEventListener('keydown', closePopupToPressEscBtn);  //  Слушатель события закрытия попапа с клавиши
@@ -103,14 +108,14 @@ const generateNewCard = dataCard => {
     popupImageTitle.textContent = dataCard.name;
     popupImageItem.setAttribute('src', dataCard.link);
     popupImageItem.setAttribute('alt', dataCard.name);
-  })
+  });
 
   return newPlaceCard;
-}
+};
 
 const addCard = dataCard => {                           // Добавляем карточки из формы 
   galleryContainer.prepend(generateNewCard(dataCard));
-}
+};
 
 initialCards.forEach(addCard);                  //  Генерируем карточки 
 
@@ -147,7 +152,7 @@ formEditElement.addEventListener('submit', saveEditFormHandler);  // Слуша�
 
 closeImagePopupButton.addEventListener('click', () => {  // Закрытие попапа картинки
   closePopup(popupBiggerImage);
-})
+});
 
 popup.forEach(function (elem) {       //  Слушатель клика по оверлею
   elem.addEventListener('click', (evt) => {
