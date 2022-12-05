@@ -11,7 +11,7 @@ const closeImagePopupButton = document.querySelector('.close-image-btn');
 
 //  Записали попапы в переменные
 
-const popup = document.querySelectorAll('.popup');
+const popups = document.querySelectorAll('.popup');
 const popupProfileForm = document.querySelector('.popup-edit');
 const popupAddPlaceForm = document.querySelector('.popup-cards');
 const popupBiggerImage = document.querySelector('.popup-img')
@@ -41,16 +41,20 @@ const popupImageItem = document.querySelector('.popup-img__item');
 
 const openPopup = popup => {                      //  Функция открытия попапа
   popup.classList.add('popup_active');
-  enableValidation(selectorsCollection); 
-  document.addEventListener('keydown', closePopupToPressEscBtn);
+  document.addEventListener('keydown', closePopupToPressEscBtn);  //  Слушатель события закрытия попапа с клавиши
 };
 
 const closePopup = popup => {                  //  Функция закрытия попапа
   popup.classList.remove('popup_active');
+  resetFormAndError(formElements);
+  document.removeEventListener('keydown', closePopupToPressEscBtn);    //  Удаляем слушатель события закрытия попапа с клавиши
+};
+
+const resetFormAndError = (formElements) => {    //  Функция сброса формы и ошибок формы
   formElements.forEach((elem) => {
     elem.reset();
     elem.querySelectorAll('.popup__error').forEach((el) => {
-      el.textContent = '';
+    el.textContent = '';
     });
   });
 };
@@ -70,13 +74,10 @@ const deleteCard = event => {           // функция удаления ка�
 
 const closePopupToPressEscBtn = (event) => {   //  функция для слушателя события ESC для закрытия попапа нажатием клавиши
   if (event.key === 'Escape') { 
-    const form = document.querySelector('.popup_active');
-    form.classList.remove('popup_active');
+    const popupActive = document.querySelector('.popup_active');
+    closePopup(popupActive);
   };
-  document.removeEventListener('keydown', closePopupToPressEscBtn);//  Удаляем слушатель события закрытия попапа с клавиши
 };
-
-document.addEventListener('keydown', closePopupToPressEscBtn);  //  Слушатель события закрытия попапа с клавиши
 
 const placeTemplate = document.querySelector('#new-card').content.querySelector('.place');   // Создаем шаблон добавления содержимого тега template
 
@@ -93,9 +94,9 @@ const generateNewCard = dataCard => {
   image.setAttribute('alt', dataCard.name);
 
   const deleteCardButton = newPlaceCard.querySelector('.delete-card-btn');  
-  deleteCardButton.addEventListener('click', deleteCard); //  здесь удаляем
+  deleteCardButton.addEventListener('click', deleteCard);                   //  здесь удаляем
 
-  const likeCardHandler = (event) => {                                                   
+  const likeCardHandler = (event) => {                                      //  добавляем/удаляем лайк 
     event.target.closest('.place__button').classList.toggle('place__button_active');
   };
 
@@ -154,8 +155,8 @@ closeImagePopupButton.addEventListener('click', () => {  // Закрытие п�
   closePopup(popupBiggerImage);
 });
 
-popup.forEach(function (elem) {       //  Слушатель клика по оверлею
-  elem.addEventListener('click', (evt) => {
+popups.forEach(function (elem) {       //  Слушатель клика по оверлею
+  elem.addEventListener('mousedown', (evt) => {
     if (evt.target === evt.currentTarget) {
       closePopup(elem);
     }
