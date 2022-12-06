@@ -20,9 +20,8 @@ const displayInputErrorText = (formElement, inputElement, errorText, settings) =
 const eraseInputErrorText = (formElement, inputElement, settings) => {          //  Убрать ошибку при вводе
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
   inputElement.classList.remove(settings.inputErrorClass);
-  errorElement.textContent = '';
   errorElement.classList.remove(settings.errorClass);
-  ;
+  errorElement.textContent = '';
 };
 
 const isInputValid = (formElement, inputElement, settings) => {                    //  Проверялет поле на валидность
