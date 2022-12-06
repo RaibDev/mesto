@@ -18,6 +18,7 @@ const popupBiggerImage = document.querySelector('.popup-img')
 
 //  Создали переменные для обращени к полям форм
 
+const popupForms = Array.from(document.querySelectorAll('.popup__form'));
 const formEditElement = document.querySelector('.popup__form_type_edit');
 const formCreateElement = document.querySelector('.popup__form_type_create');
 
@@ -42,6 +43,8 @@ const popupImageItem = document.querySelector('.popup-img__item');
 
 const placeTemplate = document.querySelector('#new-card').content.querySelector('.place');   // Создаем шаблон добавления содержимого тега template
 
+const errorElements = Array.from(document.querySelectorAll('.popup__error'));
+
 const openPopup = popup => {                      //  Функция открытия попапа
   popup.classList.add('popup_active');
   document.addEventListener('keydown', closePopupToPressEscBtn);  //  Слушатель события закрытия попапа с клавиши
@@ -54,8 +57,10 @@ const closePopup = popup => {                  //  Функция закрыти
 
 const resetPopupFormError = (popup) => {        
   if (!popup.classList.contains('popup-img')) {   
-    popup.querySelector('.popup__form').reset();
-    const errorElements = popup.querySelectorAll('.popup__error');
+    popupForms.forEach((elem) => {
+      elem.reset();
+    });
+  
     errorElements.forEach((elem) => {
       elem.textContent = '';
     });
