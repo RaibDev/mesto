@@ -18,7 +18,6 @@ const popupBiggerImage = document.querySelector('.popup-img')
 
 //  Создали переменные для обращени к полям форм
 
-const formElements = document.querySelectorAll('.popup__form');
 const formEditElement = document.querySelector('.popup__form_type_edit');
 const formCreateElement = document.querySelector('.popup__form_type_create');
 
@@ -46,16 +45,15 @@ const openPopup = popup => {                      //  Функция откры�
 
 const closePopup = popup => {                  //  Функция закрытия попапа
   popup.classList.remove('popup_active');
-  resetFormAndError(formElements);
+  resetPopupFormError(popup);
   document.removeEventListener('keydown', closePopupToPressEscBtn);    //  Удаляем слушатель события закрытия попапа с клавиши
 };
 
-const resetFormAndError = (formElements) => {    //  Функция сброса формы и ошибок формы
-  formElements.forEach((elem) => {
-    elem.reset();
-    elem.querySelectorAll('.popup__error').forEach((el) => {
-    el.textContent = '';
-    });
+const resetPopupFormError = (popup) => {           
+  popup.querySelector('.popup__form').reset();
+  const errorElements = popup.querySelectorAll('.popup__error');
+  errorElements.forEach((elem) => {
+    elem.textContent = '';
   });
 };
 
@@ -130,6 +128,9 @@ closeAddCardButton.addEventListener('click', () => {    //  Обработчик
 
 addCardButton.addEventListener('click', () => {  //  Открытие попапа добавления карточки
   openPopup(popupAddPlaceForm);
+  const inputList = Array.from(popupAddPlaceForm.querySelectorAll('.popup__input'));
+  const buttonElement = popupAddPlaceForm.querySelector('.popup__button');
+  toggleButtonSubmitForms(inputList, buttonElement, selectorsCollection);
 });
 
 const addCardHandler = evt => {
