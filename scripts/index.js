@@ -1,4 +1,6 @@
 //  Кнопки открытия попапов
+import { Card, initialCards } from './Card.js';
+import { FormValidation, selectorsCollection } from './FormValidator.js';
 
 const addCardButton = document.querySelector('.add-button');
 const editProfileButton = document.querySelector('.edit-button');
@@ -14,7 +16,7 @@ const closeImagePopupButton = document.querySelector('.close-image-btn');
 const popups = document.querySelectorAll('.popup');
 const popupProfileForm = document.querySelector('.popup-edit');
 const popupAddPlaceForm = document.querySelector('.popup-cards');
-const popupBiggerImage = document.querySelector('.popup-img')
+export const popupBiggerImage = document.querySelector('.popup-img')
 
 //  Создали переменные для обращени к полям форм
 
@@ -31,21 +33,17 @@ const linkInput = document.querySelector('.popup__input_type_link');
 
 const submitCreateFormBtn  = document.querySelector('.popup__button_type_create');
 
-const galleryContainer = document.querySelector('.gallery');
+const galleryContainer = document.querySelector('.gallery'); 
 
 const profileName = document.querySelector('.profile__name');
 const profileProfession = document.querySelector('.profile__profession');
 
-//  Переменные для работы попапа картинки
-
-const popupImageTitle = document.querySelector('.popup-img__title');
-const popupImageItem = document.querySelector('.popup-img__item');
-
-const placeTemplate = document.querySelector('#new-card').content.querySelector('.place');   // Создаем шаблон добавления содержимого тега template
+const editForm = document.querySelector('.popup__form_type_edit');
+const addCardForm = document.querySelector('.popup__form_type_create');
 
 const errorElements = Array.from(document.querySelectorAll('.popup__error'));
 
-const openPopup = popup => {                      //  Функция открытия попапа
+export const openPopup = popup => {                      //  Функция открытия попапа
   popup.classList.add('popup_active');
   document.addEventListener('keydown', closePopupToPressEscBtn);  //  Слушатель события закрытия попапа с клавиши
 };
@@ -81,10 +79,6 @@ const saveEditFormHandler = event => {     //  Функция сохранени
   closePopup(popupProfileForm);
 };
 
-const deleteCard = event => {           // функция удаления карточки
-  event.target.closest('.place').remove();
-};
-
 const closePopupToPressEscBtn = (event) => {   //  функция для слушателя события ESC для закрытия попапа нажатием клавиши
   if (event.key === 'Escape') { 
     const popupActive = document.querySelector('.popup_active');
@@ -93,41 +87,9 @@ const closePopupToPressEscBtn = (event) => {   //  функция для слу�
   };
 };
 
-//  Добавляем карточки из массива
-
-const generateNewCard = dataCard => {
-  const newPlaceCard = placeTemplate.cloneNode(true);  //копируем тег template
-  
-  const title = newPlaceCard.querySelector('.place__text');
-  title.textContent = dataCard.name;  // задаем название места
-
-  const image = newPlaceCard.querySelector('.place__image');
-  image.setAttribute('src', dataCard.link);  //задаем src картинке
-  image.setAttribute('alt', dataCard.name);
-
-  const deleteCardButton = newPlaceCard.querySelector('.delete-card-btn');  
-  deleteCardButton.addEventListener('click', deleteCard);                   //  здесь удаляем
-
-  const likeCardHandler = (event) => {                                      //  добавляем/удаляем лайк 
-    event.target.closest('.place__button').classList.toggle('place__button_active');
-  };
-
-  const likeCardButton = newPlaceCard.querySelector('.place__button');
-  likeCardButton.addEventListener('click', likeCardHandler); //  Событие клика по лайку карточки
-
-  image.addEventListener('click', () => {   //  Событие клика по картинке и открытие попапа с заданным параметрами
-    openPopup(popupBiggerImage);
-
-    popupImageTitle.textContent = dataCard.name;
-    popupImageItem.setAttribute('src', dataCard.link);
-    popupImageItem.setAttribute('alt', dataCard.name);
-  });
-
-  return newPlaceCard;
-};
-
-const addCard = dataCard => {                           // Добавляем карточки из формы 
-  galleryContainer.prepend(generateNewCard(dataCard));
+const addCard = (data) => {  
+  const card = new Card(data, '.card-template_type_place');                         // Добавляем карточки из формы 
+  galleryContainer.prepend(card.generateCard());
 };
 
 const addCardHandler = evt => {
@@ -139,7 +101,10 @@ const addCardHandler = evt => {
   resetPopupFormError(popupAddPlaceForm);
 };    
 
-initialCards.forEach(addCard);                  //  Генерируем карточки 
+          //  Генерируем карточки 
+initialCards.forEach((data) => {
+  addCard(data);
+});
 
 closeEditPopupButton.addEventListener('click', () => { //  Обработчик клика по кнопке закрытия формы поля профиля
   closePopup(popupProfileForm);
@@ -179,3 +144,9 @@ popups.forEach(function (elem) {       //  Слушатель клика по о
     }
   });
 });
+
+const editFormValidation = new FormValidation(selectorsCollection, editForm);
+editFormValidation.enableValidation();    //  Запуск валидации формы редактирования
+
+const addCardFormValidation = new FormValidation(selectorsCollection, addCardForm);
+addCardFormValidation.enableValidation();  //  Запуск валидации формы добавления кароточки
