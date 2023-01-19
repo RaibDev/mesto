@@ -1,41 +1,13 @@
-import { openPopup, popupBiggerImage } from './index.js';
-
-export const initialCards = [   //  Массив дефолтных значений карточек
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
-
-export class Card { constructor(data, templateSelector) {
-  this._name = data.name;
-  this._link = data.link;
-  this._templateSelector = templateSelector;
+export class Card { 
+  constructor( {data, openPopupImg} ) {
+    this._name = data.name;
+    this._link = data.link;
+    this._openPopupImg = openPopupImg;
 }
 
 _getTemplate() {                    //   Создаем шаблон для заполнения карточки
   const cardElement = document
-  .querySelector(this._templateSelector)
+  .querySelector('#new-card')
   .content
   .querySelector('.place')
   .cloneNode(true);
@@ -56,6 +28,8 @@ _setEventListeners() {               //  Обозначаем обработчи
 _deleteCard() {                      //  Удаляем карточку
   this._element.remove();
   this._element = null;
+  this._likeButton = null;
+  this._imageCard = null;
 }
 
 _likeCard() {                       //   Лайкаем карточку
@@ -72,7 +46,6 @@ _setPopupData() {                  //    Заполняем попап круп�
 }
 
 _openBigImage() {                 //    Открываем попап крупной картинки
-  openPopup(popupBiggerImage);
   this._setPopupData();
 }
 
