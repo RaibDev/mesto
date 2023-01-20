@@ -39,9 +39,9 @@
     <div class="popup__box">
       <h3 class="popup__title">Редактировать профиль</h3>
       <form action="#" class="popup__form popup__form_type_edit" name="edit-profile-form" novalidate>
-        <input id="profile-name-input" class="popup__input popup__input_type_name" placeholder="Имя" name="profile-name" type="text" required minlength="2" maxlength="40">
+        <input id="profile-name-input" class="popup__input popup__input_type_name" spellcheck="true" placeholder="Имя" name="profile-name" type="text" required minlength="2" maxlength="40">
         <span class="popup__error profile-name-input-error"></span>
-        <input id="profile-job-input" class="popup__input popup__input_type_job" placeholder="О себе" name="profile-job" type="text" required minlength="2" maxlength="200">
+        <input id="profile-job-input" class="popup__input popup__input_type_job" spellcheck="true" placeholder="О себе" name="profile-job" type="text" required minlength="2" maxlength="200">
         <span class="popup__error profile-job-input-error"></span>
         <button class="popup__button" type="submit" name="submit-form">Сохранить</button>
       </form>
@@ -52,9 +52,9 @@
     <div class="popup__box">
       <h3 class="popup__title">Новое место</h3>
       <form action="#" class="popup__form popup__form_type_create" name="create-place-form" novalidate>
-        <input id="place-title-input" class="popup__input popup__input_type_title popup__input_type_place-form" placeholder="Название" name="place-title" type="text" required minlength="2" maxlength="30">
+        <input id="place-title-input" class="popup__input popup__input_type_title popup__input_type_place-form" spellcheck="true" placeholder="Название" name="place-title" type="text" required minlength="2" maxlength="30">
         <span class="popup__error place-title-input-error"></span>
-        <input id="place-link-input" class="popup__input popup__input_type_link popup__input_type_place-form" placeholder="Ссылка на картинку" name="place-link" type="url" required>
+        <input id="place-link-input" class="popup__input popup__input_type_link popup__input_type_place-form" spellcheck="true" placeholder="Ссылка на картинку" name="place-link" type="url" required>
         <span class="popup__error place-link-input-error"></span>
         <button class="popup__button popup__button_type_create" type="submit" name="submit-form">Создать</button>
       </form>

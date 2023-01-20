@@ -1,13 +1,14 @@
 export class Card { 
-  constructor( {data, openPopupImg} ) {
+  constructor( {data, openPopupImg}, templateSelector ) {
     this._name = data.name;
     this._link = data.link;
-    this._openPopupImg = openPopupImg;
+    this._templateSelector = templateSelector;
+    this.openPopupImg = openPopupImg;
 }
 
 _getTemplate() {                    //   Создаем шаблон для заполнения карточки
   const cardElement = document
-  .querySelector('#new-card')
+  .querySelector(this._templateSelector)
   .content
   .querySelector('.place')
   .cloneNode(true);
@@ -22,7 +23,7 @@ _setEventListeners() {               //  Обозначаем обработчи
   this._likeButton = this._element.querySelector('.place__button');
   this._likeButton.addEventListener('click', () => { this._likeCard() });
 
-  this._imageCard.addEventListener('click', () => { this._openBigImage() });
+  this._imageCard.addEventListener('click', () => { this.openPopupImg(this._name, this._link) });
 }
 
 _deleteCard() {                      //  Удаляем карточку
@@ -34,19 +35,6 @@ _deleteCard() {                      //  Удаляем карточку
 
 _likeCard() {                       //   Лайкаем карточку
   this._likeButton.classList.toggle('place__button_active');
-}
-
-_setPopupData() {                  //    Заполняем попап крупной картинки
-    const popupImageTitle = document.querySelector('.popup-img__title');
-    popupImageTitle.textContent = this._name;
-
-    const popupImageItem = document.querySelector('.popup-img__item');
-    popupImageItem.alt = this._name;
-    popupImageItem.src = this._link;
-}
-
-_openBigImage() {                 //    Открываем попап крупной картинки
-  this._setPopupData();
 }
 
 _setData() {                      //   Заполнение полей новой карточки

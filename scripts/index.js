@@ -42,7 +42,12 @@ const profileProfession = document.querySelector('.profile__profession');
 const editForm = document.querySelector('.popup__form_type_edit');
 const addCardForm = document.querySelector('.popup__form_type_create');
 
-const errorElements = Array.from(document.querySelectorAll('.popup__error'));
+const popupImageTitle = document.querySelector('.popup-img__title');
+const popupImageItem = document.querySelector('.popup-img__item');
+
+
+
+// const errorElements = Array.from(document.querySelectorAll('.popup__error'));
 
 export const openPopup = popup => {                      //  Функция открытия попапа
   popup.classList.add('popup_active');
@@ -73,11 +78,13 @@ const closePopupToPressEscBtn = (event) => {   //  функция для слу�
 const addCard = (data) => {  
   const card = new Card({
     data,
-    openPopupImg: () => {
-      openPopup(popupBiggerImage);
-      card._openBigImage();
+    openPopupImg: (name, link) => {         //  Было бы некорректно, если бы я использовал конструкцию без прокидывания параметров здесь, но с использованием data из деструктуризации строкой выше?   
+      popupImageTitle.textContent = name;   //  Но мы обязаны были передать параметр в этот колбэк, тк его описали в классе?
+      popupImageItem.alt = name;            //  Изначально написал data.name, data.link
+      popupImageItem.src = link;
+      openPopup(popupBiggerImage); 
     }
-  });                         // Добавляем карточки из формы 
+  }, '.card-template_type_place');                         // Добавляем карточки из формы 
   galleryContainer.prepend(card.generateCard());
 };
 
@@ -107,7 +114,7 @@ addCardButton.addEventListener('click', () => {  //  Открытие попап
 
   addCardForm.reset();
   addCardFormValidation.resetErrors();
-  addCardFormValidation.disabledSubmitButton();
+  addCardFormValidation.disableSubmitButton();
 });           
 
 formCreateElement.addEventListener('submit', addCardHandler);        // Слушатель сабмита формы добавления
@@ -116,7 +123,7 @@ editProfileButton.addEventListener('click', () => { //  Открытие ред�
   openPopup(popupProfileForm);
 
   editFormValidation.resetErrors();
-  editFormValidation.disabledSubmitButton();
+  editFormValidation.disableSubmitButton();
 
   nameInput.value = profileName.textContent;
   jobInput.value = profileProfession.textContent;

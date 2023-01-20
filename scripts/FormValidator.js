@@ -24,9 +24,9 @@ export class FormValidation {
 
   _toggleSubmitButtonState() {   //   Переключатель активности кнопки
     if(this._hasInvalidInput()) {
-      this.disabledSubmitButton();
+      this.disableSubmitButton();
     } else {
-      this._activedSubmitButton();
+      this._activateSubmitButton();
     }
   }
 
@@ -62,12 +62,12 @@ export class FormValidation {
     this._inputList.forEach( input => this._eraseInputErrorText(input) );
   }
 
-  disabledSubmitButton() {
+  disableSubmitButton() {
     this._buttonElement.disabled = true;
     this._buttonElement.classList.add(this._inactiveButtonClass);
   }
 
-  _activedSubmitButton() {
+  _activateSubmitButton() {
     this._buttonElement.disabled = false;
     this._buttonElement.classList.remove(this._inactiveButtonClass);
   }
