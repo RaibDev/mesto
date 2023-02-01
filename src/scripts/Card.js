@@ -1,7 +1,8 @@
-export class Card { 
+export default class Card { 
   constructor( {data, openPopupImg}, templateSelector ) {
-    this._name = data.name;
-    this._link = data.link;
+    // this._name = data.name;
+    // this._link = data.link;
+    this._data = data;
     this._templateSelector = templateSelector;
     this.openPopupImg = openPopupImg;
 }
@@ -23,7 +24,7 @@ _setEventListeners() {               //  Обозначаем обработчи
   this._likeButton = this._element.querySelector('.place__button');
   this._likeButton.addEventListener('click', () => { this._likeCard() });
 
-  this._imageCard.addEventListener('click', () => { this.openPopupImg(this._name, this._link) });
+  this._imageCard.addEventListener('click', () => { this.openPopupImg(this._data) });
 }
 
 _deleteCard() {                      //  Удаляем карточку
@@ -39,11 +40,11 @@ _likeCard() {                       //   Лайкаем карточку
 
 _setData() {                      //   Заполнение полей новой карточки
   const titleCard = this._element.querySelector('.place__text');
-  titleCard.textContent = this._name;
+  titleCard.textContent = this._data.name;
 
   this._imageCard = this._element.querySelector('.place__image');
-  this._imageCard.alt = this._name;
-  this._imageCard.src = this._link;
+  this._imageCard.alt = this._data.name;
+  this._imageCard.src = this._data.link;
 }
 
 generateCard() {                 //   Публтчный метод генерации карточки
@@ -52,6 +53,7 @@ generateCard() {                 //   Публтчный метод генера
   this._setEventListeners();
 
   return this._element;
+
 }
 };
 
