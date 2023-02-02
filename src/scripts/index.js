@@ -4,7 +4,7 @@ import Section  from './Section.js';
 import UserInfo from './UserInfo.js';
 import PopupWithImage from './PopupWithImage.js';
 import PopupWithForm from './PopupWithForm.js';
-import { selectorsCollection, initialCards } from './data.js';
+import { selectorsCollection, initialCards } from '../utils/components.js';
 import '../pages/index.css';
 
 const addCardButton = document.querySelector('.add-button');
@@ -12,13 +12,8 @@ const editProfileButton = document.querySelector('.edit-button');
 
 export const popupBiggerImage = document.querySelector('.popup-img')
 
-// const formCreateElement = document.querySelector('.popup__form_type_create');
-
 const nameInput = document.querySelector('.popup__input_type_name');
 const jobInput = document.querySelector('.popup__input_type_job');
-
-const profileName = document.querySelector('.profile__name');
-const profileProfession = document.querySelector('.profile__profession');
 
 const editForm = document.querySelector('.popup__form_type_edit');
 const addCardForm = document.querySelector('.popup__form_type_create');
@@ -39,21 +34,26 @@ const popupCardForm = new PopupWithForm({
   }
 });
 
+const bigImagePopup = new PopupWithImage('.popup-img');
+
 popupUserForm.setEventListeners();
 popupCardForm.setEventListeners();
+bigImagePopup.setEventListeners();
 
-const addCard = (data) => {
+const createCard = (data) => {
   const card = new Card({
     data,
     openPopupImg: () => {
-      const bigImagePopup = new PopupWithImage({ data }, '.popup-img');
-      bigImagePopup.open();
-      bigImagePopup.setEventListeners();
+      bigImagePopup.open({ data });
     }
   }, '.card-template_type_place');
   const cardItem = card.generateCard();
-  newCard.addItem(cardItem);
-  return card;
+  
+  return cardItem;
+}
+
+const addCard = (data) => {
+  newCard.addItem(createCard(data));
 }
   const newCard = new Section({
     items: initialCards,
@@ -66,7 +66,6 @@ const addCard = (data) => {
 addCardButton.addEventListener('click', () => {  //  Открытие попапа добавления карточки
   popupCardForm.open();
 
-  // addCardForm.reset();
   addCardFormValidation.resetErrors();
   addCardFormValidation.disableSubmitButton();
 });           
@@ -77,8 +76,9 @@ editProfileButton.addEventListener('click', () => { //  Открытие ред�
   editFormValidation.resetErrors();
   editFormValidation.disableSubmitButton();
 
-  nameInput.value = profileName.textContent;
-  jobInput.value = profileProfession.textContent;
+  const userInfoObj = userInfo.getUserInfo();
+  nameInput.value = userInfoObj.name;
+  jobInput.value = userInfoObj.info;
 }); 
 
 const editFormValidation = new FormValidation(selectorsCollection, editForm);

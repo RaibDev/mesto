@@ -5,6 +5,9 @@ export default class Card {
     this._data = data;
     this._templateSelector = templateSelector;
     this.openPopupImg = openPopupImg;
+    this._element = this._getTemplate();
+    this._imageCard = this._element.querySelector('.place__image');
+    this._titleCard = this._element.querySelector('.place__text');
 }
 
 _getTemplate() {                    //   Создаем шаблон для заполнения карточки
@@ -18,8 +21,8 @@ _getTemplate() {                    //   Создаем шаблон для за
 }
 
 _setEventListeners() {               //  Обозначаем обработчики
-  const deleteButton = this._element.querySelector('.delete-card-btn');
-  deleteButton.addEventListener('click', () => { this._deleteCard() });
+  this._deleteButton = this._element.querySelector('.delete-card-btn');
+  this._deleteButton.addEventListener('click', () => { this._deleteCard() });
 
   this._likeButton = this._element.querySelector('.place__button');
   this._likeButton.addEventListener('click', () => { this._likeCard() });
@@ -39,21 +42,16 @@ _likeCard() {                       //   Лайкаем карточку
 }
 
 _setData() {                      //   Заполнение полей новой карточки
-  const titleCard = this._element.querySelector('.place__text');
-  titleCard.textContent = this._data.name;
-
-  this._imageCard = this._element.querySelector('.place__image');
+  this._titleCard.textContent = this._data.name;
   this._imageCard.alt = this._data.name;
   this._imageCard.src = this._data.link;
 }
 
 generateCard() {                 //   Публтчный метод генерации карточки
-  this._element = this._getTemplate();
   this._setData();
   this._setEventListeners();
 
   return this._element;
-
 }
 };
 
