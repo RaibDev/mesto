@@ -1,6 +1,6 @@
 export default class Section {
-  constructor({items, renderer }, selector) {
-    this._dataItems = items;
+  constructor({renderer }, selector) {
+    // this._dataItems = data;
     this._renderer = renderer;
     this._container = document.querySelector(selector);
   }
@@ -13,8 +13,9 @@ export default class Section {
     this._container.innerHTML = '';
   }
 
-  renderItems() {    
-    this.clear();
-    this._renderer(this._dataItems);
+  renderItems(data, userId) {    
+    // this.clear();
+    // this._renderer(this._dataItems);
+    this._renderer(data, userId);
   }
 }
