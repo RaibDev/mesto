@@ -7,13 +7,13 @@ export default class UserInfo {
     this._avatarSelector = document.querySelector(avatarSelector);
   }
 
-  // getUserInfo() {
-  //   this.userInfoObj = {};
-  //   this.userInfoObj.name = this._inputProfileName.textContent;
-  //   this.userInfoObj.info = this._inputProfileInfo.textContent;
+  getUserInfo() {
+    this.userInfoObj = {};
+    this.userInfoObj.name = this._inputProfileName.textContent;
+    this.userInfoObj.info = this._inputProfileInfo.textContent;
 
-  //   return this.userInfoObj;
-  // }
+    return this.userInfoObj;
+  }
 
   setUserInfo(data) {
     this._inputProfileInfo.textContent = data.about;

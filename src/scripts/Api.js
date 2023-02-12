@@ -12,16 +12,15 @@ export default class Api {
       return Promise.reject(`Ошибка: ${response.status}`);
   }
 
-  _rejectPromise(err) {
-    console.log(err);
-  }
+  // _rejectPromise(err) {
+  //   console.log(err);
+  // }
 
   getInitialCards() {
     return fetch(`${this._url}/cards`, {
       headers: this._headers
     })
-      .then(response => this._checkPromise(response))
-      .catch(error => this._rejectPromise(error));
+      .then(response => this._checkPromise(response));
     
   }
 
@@ -34,8 +33,7 @@ export default class Api {
         about: formData.about
       })
     })
-      .then(response => this._checkPromise(response))
-      .catch(error => this._rejectPromise(error));
+      .then(response => this._checkPromise(response));
   }
 
   changeUserAvatar(formData) {
@@ -46,16 +44,14 @@ export default class Api {
         avatar: formData.avatar
       })
     })
-      .then(response => this._checkPromise(response))
-      .catch(error => this._rejectPromise(error));
+      .then(response => this._checkPromise(response));
   }
 
   getUserInfo() {
     return fetch(`${this._url}/users/me`, {
       headers: this._headers
     })
-      .then(response => this._checkPromise(response))
-      .catch(error => this._rejectPromise(error));
+      .then(response => this._checkPromise(response));
   }
 
   addNewCard(data) {
@@ -67,8 +63,7 @@ export default class Api {
         link: data.link
       })
     })
-      .then(response => this._checkPromise(response))
-      .catch(error => this._rejectPromise(error));
+      .then(response => this._checkPromise(response));
   }
 
   deleteCard(id) {
@@ -76,8 +71,7 @@ export default class Api {
       headers: this._headers,
       method: 'DELETE'
     })
-      .then(response => this._checkPromise(response))
-      .catch(error => this._rejectPromise(error));
+      .then(response => this._checkPromise(response));
   }
 
   likeCard(id) {
@@ -85,8 +79,7 @@ export default class Api {
       headers: this._headers,
       method: 'PUT'
     })
-      .then(response => this._checkPromise(response))
-      .catch(error => this._rejectPromise(error));
+      .then(response => this._checkPromise(response));
   }
 
   dislikeCard(id) {
@@ -94,8 +87,7 @@ export default class Api {
       headers: this._headers,
       method: 'DELETE'
     })
-      .then(response => this._checkPromise(response))
-      .catch(error => this._rejectPromise(error));
+      .then(response => this._checkPromise(response));
   }
 
 }

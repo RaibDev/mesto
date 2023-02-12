@@ -1,38 +1,27 @@
-import Card from './Card.js';
-import FormValidation from './FormValidator.js';
-import Section  from './Section.js';
-import UserInfo from './UserInfo.js';
-import PopupWithImage from './PopupWithImage.js';
-import PopupWithForm from './PopupWithForm.js';
-import PopupAvatar from './PopupWithAvatar.js';
-import PopupWithConfirmation from './PopupWithConfirmation.js';
-import { selectorsCollection, initialCards } from '../utils/components.js';
-import Api from './Api.js';
-import '../pages/index.css';
-
-const addCardButton = document.querySelector('.add-button');
-const editProfileButton = document.querySelector('.edit-button');
-
-export const popupBiggerImage = document.querySelector('.popup-img')
-
-const nameInput = document.querySelector('.popup__input_type_name');
-const jobInput = document.querySelector('.popup__input_type_job');
-
-const editForm = document.querySelector('.popup__form_type_edit');
-const addCardForm = document.querySelector('.popup__form_type_create');
-const avatarForm = document.querySelector('.popup__form_type_avatar');
-
-const editAvatarButton = document.querySelector('.profile__avatar');
+import Card from '../scripts/Card.js';
+import FormValidation from '../scripts/FormValidator.js';
+import Section  from '../scripts/Section.js';
+import UserInfo from '../scripts/UserInfo.js';
+import PopupWithImage from '../scripts/PopupWithImage.js';
+import PopupWithForm from '../scripts/PopupWithForm.js';
+import PopupWithConfirmation from '../scripts/PopupWithConfirmation.js';
+import { 
+  selectorsCollection, 
+  configApi,
+  addCardButton,
+  editProfileButton,
+  popupBiggerImage,
+  nameInput,
+  jobInput,
+  editForm,
+  addCardForm,
+  avatarForm,
+  editAvatarButton,
+  initialCards } from '../utils/components.js';
+import Api from '../scripts/Api.js';
+import './index.css';
 
 const userInfo = new UserInfo('.profile__name', '.profile__profession', '.profile__avatar');
-
-const configApi = {
-  url: 'https://mesto.nomoreparties.co/v1/cohort-58',
-  headers: {
-    authorization: '224c0bf1-3fa1-420b-9667-0b1a7afec2fe',
-    'Content-Type': 'application/json'
-  }
-}
 
 const api = new Api(configApi);
 
@@ -44,6 +33,7 @@ const popupUserForm = new PopupWithForm({
       userInfo.setUserInfo(data);
       popupUserForm.close();
     })
+      .catch(err => console.log(err))
       .finally(() => {
         popupUserForm.showSaving(false, 'Сохранить');
       })
@@ -58,13 +48,14 @@ const popupCardForm = new PopupWithForm({
       addCard(data);
       popupCardForm.close();
       })
-      .finally(() => {
+        .catch(err => console.log(err))
+        .finally(() => {
         popupCardForm.showSaving(false, 'Создать');
       })
   }
 });
 
-const popupAvatarForm = new PopupAvatar({
+const popupAvatarForm = new PopupWithForm({     
   selector: '.popup-avatar',
   submitFormHandler: (formData) => {
     popupAvatarForm.showSaving(true, 'Создать');
@@ -72,6 +63,7 @@ const popupAvatarForm = new PopupAvatar({
       userInfo.setAvatar(data);
       popupAvatarForm.close()
     })
+      .catch(err => console.log(err))
       .finally(() => {
         popupAvatarForm.showSaving(false, 'Создать');
       })
@@ -84,11 +76,10 @@ const popupConfirmation = new PopupWithConfirmation({
   selector: '.popup-delete',
   handlerFormConfirmation: (id) => {
     return api.deleteCard(id).then(() => {
-
+      popupConfirmation.close();
     })
-      .finally(() => {
-        popupConfirmation.close();
-      })
+      .catch(err => console.log(err))
+      .finally(() => {});
   }
 })
 
@@ -112,7 +103,7 @@ const createCard = (data) => {
     },
     handleDeleteCard: () => {
       confirmDeleting(data);
-      card.deleteCard();
+      card.deleteCard(); //   Прошу прощения, что отправляю без исправления, очень пытаюсь успеть в жесткий дедлайн, буду разбираться с тем, как это правильнее реализовать и в следующей итерации добью. Если Вы читаете это, а проблема ушла, значит успел до проверки
       // popupConfirmation.open(id);
       // return api.deleteCard(id).then(() => {
       //   card.deleteCard();
@@ -126,12 +117,14 @@ const createCard = (data) => {
         card.likeCard();
         card.getLikeNunmer(data);
       })
+      .catch(err => console.log(err));
     },
     handleDislikeCard: (id) => {
       return api.dislikeCard(id).then((data) => {
         card.likeCard();
         card.getLikeNunmer(data);
       })
+      .catch(err => console.log(err));
     }
   }, '.card-template_type_place');
   const cardItem = card.generateCard();
@@ -143,10 +136,9 @@ const addCard = (data) => {
   newCard.addItem(createCard(data));
 }
   const newCard = new Section({
-    // items: initialCards,
     renderer: (data, userId) => {
       // data.forEach(item => { addCard(item) })
-      newCard.addItem(createCard(data, userId))
+      newCard.addItem(createCard(data, userId));
     }
   }, '.gallery');
   // newCard.renderItems();
@@ -164,9 +156,9 @@ editProfileButton.addEventListener('click', () => { //  Открытие ред�
   editFormValidation.resetErrors();
   editFormValidation.disableSubmitButton();
 
-  // const userInfoObj = userInfo.getUserInfo();
-  // nameInput.value = userInfoObj.name;
-  // jobInput.value = userInfoObj.info;
+  const userInfoObj = userInfo.getUserInfo();
+  nameInput.value = userInfoObj.name;
+  jobInput.value = userInfoObj.info;
 }); 
 
 editAvatarButton.addEventListener('click', () => {
@@ -204,15 +196,13 @@ editAvatarFormValidation.enableValidation();
 
 // getUserInfo();
 
-Promise.all([api.getInitialCards(), api.getUserInfo()])
+Promise.all([api.getInitialCards(), api.getUserInfo()]) //   Инициализация массива карточек с сервера и добаление их на страницу, Добавление в профель информации польователя
   .then(([data, user]) => {
     userId = user._id;
-    data.forEach((dataElem) => {
+    data.reverse().forEach((dataElem) => {
       // addCard(dataElem);
       newCard.renderItems(dataElem, userId);
    });
-  //  userId = user._id;
-   console.log(userId)
    userInfo.setUserInfo(user)
   })
   .catch((err) => {

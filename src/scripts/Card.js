@@ -91,7 +91,7 @@ _setData() {                      //   Заполнение полей ново�
 generateCard() {                 //   Публтчный метод генерации карточки
   this._setData();
   this._setEventListeners();
-  if(this._checkUserLike()) { this._likeButton.classList.add('place__button_active') }
+  if(this._checkUserLike()) { this._likeButton.classList.add('place__button_active') };
   return this._element;
 }
 };
