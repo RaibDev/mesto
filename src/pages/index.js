@@ -96,7 +96,7 @@ const createCard = (data) => {
           popupConfirmation.close();
           card.deleteCard();
         })
-        .catch(err => console.log(err))
+          .catch(err => console.log(err))
       })
     },
     handleLikeCard: (id) => {
