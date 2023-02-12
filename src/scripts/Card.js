@@ -46,7 +46,7 @@ _checkUserLike() {
 
 _setEventListeners() {               //  Обозначаем обработчики
   this._deleteButton.addEventListener('click', () => { 
-    this.handleDeleteCard(this._data);
+    this.handleDeleteCard(this._data._id);
   });
 
   this._likeButton = this._element.querySelector('.place__button');

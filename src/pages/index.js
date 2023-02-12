@@ -73,20 +73,8 @@ const popupAvatarForm = new PopupWithForm({
 const bigImagePopup = new PopupWithImage('.popup-img');
 
 const popupConfirmation = new PopupWithConfirmation({
-  selector: '.popup-delete',
-  handlerFormConfirmation: (id) => {
-    return api.deleteCard(id).then(() => {
-      popupConfirmation.close();
-    })
-      .catch(err => console.log(err))
-      .finally(() => {});
-  }
+  selector: '.popup-delete'
 })
-
-const confirmDeleting = (obj) => {
-  popupConfirmation.open();
-  popupConfirmation.getDeletingId(obj);
-}
 
 popupUserForm.setEventListeners();
 popupCardForm.setEventListeners();
@@ -101,16 +89,14 @@ const createCard = (data) => {
     openPopupImg: () => {
       bigImagePopup.open({ data });
     },
-    handleDeleteCard: () => {
-      confirmDeleting(data);
-      card.deleteCard(); //   Прошу прощения, что отправляю без исправления, очень пытаюсь успеть в жесткий дедлайн, буду разбираться с тем, как это правильнее реализовать и в следующей итерации добью. Если Вы читаете это, а проблема ушла, значит успел до проверки
-      // popupConfirmation.open(id);
-      // return api.deleteCard(id).then(() => {
-      //   card.deleteCard();
-      // })
-      // .finally(() => {
-      //   popupConfirmation.close();
-      // })
+    handleDeleteCard: (id) => {
+      popupConfirmation.open();  //  Открыли попап подтверждения
+      popupConfirmation.callbackDeleteFunction(() => {  //  передали этот код аргументом в метод класса подтверждения и присвоили его методу-колбэку, который вызовем при сабмите
+        return api.deleteCard(id).then(() => {          //  после сабмита в попапе подтверждения вызовется этот код с тем айдишником, который передали в колбэке при нажатии кнопки удаления
+          popupConfirmation.close();
+          card.deleteCard();
+        })
+      })
     },
     handleLikeCard: (id) => {
       return api.likeCard(id).then((data) => {
@@ -176,25 +162,6 @@ addCardFormValidation.enableValidation();  //  Запуск валидации �
 
 const editAvatarFormValidation = new FormValidation(selectorsCollection, avatarForm);
 editAvatarFormValidation.enableValidation();
-
-// const getInitialCards = () => {
-//   return api.getInitialCards().then((data) => {  //   Инициализация массива карточек с сервера и добаление их на страницу
-//   data.forEach((dataElem) => {
-//     addCard(dataElem);
-//   })
-// })
-// };
-
-// getInitialCards();
-
-// const getUserInfo = () => {
-//   return api.getUserInfo().then((data) => {
-//   userInfo.setUserInfo(data);
-//   userId = data._id;
-// })
-// };
-
-// getUserInfo();
 
 Promise.all([api.getInitialCards(), api.getUserInfo()]) //   Инициализация массива карточек с сервера и добаление их на страницу, Добавление в профель информации польователя
   .then(([data, user]) => {
